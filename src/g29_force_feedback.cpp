@@ -140,12 +140,13 @@ void G29ForceFeedback::updateFfDevice()
     // for safety
     force = (force > 0.0) ? std::min(force, m_max_force) : std::max(force, -m_max_force);
 
-    // start effect
+    // set effect
     m_effect.u.constant.level = (short)(force * 32767.0);
     m_effect.direction = 0xC000;
-    m_effect.u.constant.envelope.attack_level = (short)(force * 32767.0);
-    m_effect.u.constant.envelope.fade_level = (short)(force * 32767.0);
+    m_effect.u.constant.envelope.attack_level = (short)(force * 32767.0 * 0.5);
+    m_effect.u.constant.envelope.fade_level = (short)(force * 32767.0 * 0.5);
 
+    // upload effect
     if (ioctl(m_device_handle, EVIOCSFF, &m_effect) < 0)
     {
         std::cout << "failed to upload m_effect" << std::endl;
@@ -247,9 +248,9 @@ void G29ForceFeedback::initFfDevice()
     m_effect.replay.delay = 0;
     m_effect.u.constant.level = 0;
     m_effect.direction = 0xC000;
-    m_effect.u.constant.envelope.attack_length = 0;
+    m_effect.u.constant.envelope.attack_length = 0.0;
     m_effect.u.constant.envelope.attack_level = 0;
-    m_effect.u.constant.envelope.fade_length = 0;
+    m_effect.u.constant.envelope.fade_length = 10000.0;
     m_effect.u.constant.envelope.fade_level = 0;
 
     if (ioctl(m_device_handle, EVIOCSFF, &m_effect) < 0)
