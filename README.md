@@ -84,10 +84,10 @@ If you cannot get `CONFIG_LOGIWHEELS_FF=y`, try to find patch...
     ```
 
     or you can run 
-    '''
-    sudo chmod 777 test.sh
+    ```
+     sudo chmod 777 test.sh
      ./test.sh
-    '''
+    ```
    (in src/ros-g29-force-feedback) to publish a topic.
     Once the message is thrown, the wheel rotates to 0.3*2.5&pi; with PID control (the bigger the gap between current angle and specified angle is, the bigger the rotation force is.).
     Publish rate is not restricted. The value is ignored if you set pid_mode.
