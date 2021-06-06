@@ -110,7 +110,7 @@ PID-Constant mode can be changed dynamically!!
 Removed mode selection from rosparam.
 Rotation force is ignored when PID mode. (max force can be specified with rosparam (not dynamic))
 
-## 2020-10-10
+## 2021-06-06
 ### changed
 Wrapped a launch file and test.sh.
 
