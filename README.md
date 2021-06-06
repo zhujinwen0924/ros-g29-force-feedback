@@ -40,12 +40,7 @@ If you cannot get `CONFIG_LOGIWHEELS_FF=y`, try to find patch...
     cd /path/to/any/dir
     mkdir -p catkin_ws/src
     cd /catkin_ws/src
-    catkin_init_workspace
-    ```
-1. download and build package
-    ```bash
-    cd /catkin_ws/src
-    git clone https://github.com/kuriatsu/ros-g29-force-feedback.git g29_force_feedback
+    git clone https://github.com/zhujinwen0924/ros-g29-force-feedback.git
     cd ../
     catkin_make
     ```
@@ -72,13 +67,12 @@ If you cannot get `CONFIG_LOGIWHEELS_FF=y`, try to find patch...
 1. run ros node
     ```bash
     $ source /path/to/catkin_ws/devel/setup.bash
-    $ rosparam load /path/to/catkin_ws/src/g29_force_feedback/g29_force_feedback.yaml
-    $ rosrun g29-force-feedback node
+    $ roslaunch g29_force_feedback g29_force_feedback.launch
     ```
 
 1. Throw message (It's better to use tab completion)  
     ```bash
-    $ rostopic pub /ff_target g29_force_feedback/ForceFeedck "header:
+    $ rostopic pub /ff_target g29-force-feedback/ForceFeedback "header:
       seq: 0
       stamp:
         secs: 0
@@ -88,6 +82,8 @@ If you cannot get `CONFIG_LOGIWHEELS_FF=y`, try to find patch...
     force: 0.0
     pid_mode: true"
     ```
+
+    or you can run ./test.sh(in src/ros-g29-force-feedback) to publish a topic.
     Once the message is thrown, the wheel rotates to 0.3*2.5&pi; with PID control (the bigger the gap between current angle and specified angle is, the bigger the rotation force is.).
     Publish rate is not restricted. The value is ignored if you set pid_mode.
 
@@ -113,3 +109,9 @@ If you cannot get `CONFIG_LOGIWHEELS_FF=y`, try to find patch...
 PID-Constant mode can be changed dynamically!!
 Removed mode selection from rosparam.
 Rotation force is ignored when PID mode. (max force can be specified with rosparam (not dynamic))
+
+## 2020-10-10
+### changed
+Wrapped a launch file and test.sh.
+
+
